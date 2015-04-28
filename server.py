@@ -46,7 +46,7 @@ def page_not_found(e):
 
 @app.route('/')
 def screen():
-	return render_template('index.html')
+	return render_template('index.flt')
 
 @app.teardown_appcontext
 def close_db():
