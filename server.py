@@ -48,6 +48,10 @@ def page_not_found(e):
 def screen():
 	return render_template('index.flt')
 
+@app.route('/login')
+def login():
+	return render_template('login.html')
+
 @app.teardown_appcontext
 def close_db():
 	"""Closes the database again at the end of the request."""
