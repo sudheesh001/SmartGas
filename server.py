@@ -52,6 +52,18 @@ def screen():
 def login():
 	return render_template('login.html')
 
+@app.route('/dashboard')
+def dashboard():
+	return render_template('dashboard.html')
+
+@app.route('/enterprise')
+def enterprise():
+	return render_template('enterprise.html')
+
+@app.route('/grid')
+def grid():
+	return render_template('grid.html')
+
 @app.teardown_appcontext
 def close_db():
 	"""Closes the database again at the end of the request."""
