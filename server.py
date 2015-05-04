@@ -60,9 +60,39 @@ def dashboard():
 def enterprise():
 	return render_template('enterprise.html')
 
+@app.route('/enterpriseprofile')
+def enterpriseprofile():
+	return render_template('enterpriseprofile.html')
+
+@app.route('/successfullydelivered')
+def successfullydelivered():
+	return render_template('successDelivery.html')
+
+@app.route('/undelivered')
+def undelivered():
+	return render_template('undelivered.html')
+
 @app.route('/grid')
 def grid():
+	# Cylinders in warehouse should take us to Grid
 	return render_template('grid.html')
+
+@app.route('/invoice')
+def invoice():
+	return render_template('invoice.html')
+
+@app.route('/invoices')
+def invoices():
+	# Shows the list of invoices of previous purchases as a table
+	return render_template('invoices.html')
+
+@app.route('/profile')
+def profile():
+	return render_template('profile.html')
+
+@app.route('/editprofile')
+def editprofile():
+	return render_template('editprofile.html')
 
 @app.teardown_appcontext
 def close_db():

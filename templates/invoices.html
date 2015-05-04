@@ -1,0 +1,123 @@
+{% extends "header.html" %}
+{% block body %}
+<div class="content-wrapper" style="background-color:#DDDDDD;">
+	<section class="content-header">
+		<h1>
+			Invoices
+			<small>The following are your orders. View the previous orders and tracking status of current orders here.</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li class="active">Invoices</li>
+		</ol>
+	</section>
+	<section class="content">
+		<div class="container">
+			<div class="row">
+				<div class="box box-default">
+					<div class="box-header with-border">
+						<h3 class="box-title">Purchase Number #TRANSACTIONID</h3>
+						<div class="box-tools pull-right">
+							<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+						</div><!-- /.box-tools -->
+					</div><!-- /.box-header -->
+					<div class="box-body">
+						<div class="row">
+							<div class="col-md-4 col-sm-6">
+								<div class="info-box bg-green">
+									<span class="info-box-icon"><i class="fa fa-thumbs-o-up"></i></span>
+									<div class="info-box-content">
+										<span class="info-box-text">Successfully Delivered</span>
+										<span class="info-box-number">12 Jan 2015</span>
+										<div class="progress">
+											<div class="progress-bar" style="width: 100%"></div>
+										</div>
+										<span class="progress-description">
+											Successful Delivery
+										</span>
+									</div><!-- /.info-box-content -->
+								</div><!-- /.info-box -->
+							</div>
+							<div class="col-md-8 col-sm-6">
+								<div class="box-footer">
+									<div class="row">
+										<div class="col-sm-12 col-xs-6">
+											<div class="description-block border-right">
+												<h5 class="description-header pull-left">Delivered By</h5>
+												<span class="description-text pull-right">Gas Agency Name</span>
+											</div><!-- /.description-block -->
+											<br>
+											<div class="description-block border-right">
+												<h5 class="description-header pull-left">Delivered Item</h5>
+												<span class="description-text pull-right">COMPANy Gas Cylinder</span>
+											</div><!-- /.description-block -->
+											<br>
+											<div class="description-block border-right">
+												<h5 class="description-header pull-left">Delivered On</h5>
+												<span class="description-text pull-right">Date</span>
+											</div><!-- /.description-block -->
+											<br>
+											<a href="/invoice" class="btn btn-sm btn-info btn-flat pull-left">View Invoice</a>
+										</div><!-- /.col -->
+									</div><!-- /.row -->
+								</div>
+							</div>
+						</div>
+					</div><!-- /.box-body -->
+				</div><!-- /.box -->
+				<div class="box box-default">
+					<div class="box-header with-border">
+						<h3 class="box-title">Purchase Number #TRANSACTIONID</h3>
+						<div class="box-tools pull-right">
+							<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+						</div><!-- /.box-tools -->
+					</div><!-- /.box-header -->
+					<div class="box-body">
+						<div class="row">
+							<div class="col-md-4 col-sm-6">
+								<div class="info-box bg-yellow">
+									<span class="info-box-icon"><i class="fa fa-calendar"></i></span>
+									<div class="info-box-content">
+										<span class="info-box-text">On Delivery</span>
+										<span class="info-box-number">12 Jan 2015</span>
+										<div class="progress">
+											<div class="progress-bar" style="width: 60%"></div>
+										</div>
+										<span class="progress-description">
+											Expected Delivery Delivery
+										</span>
+									</div><!-- /.info-box-content -->
+								</div><!-- /.info-box -->
+							</div>
+							<div class="col-md-8 col-sm-6">
+								<div class="box-footer">
+									<div class="row">
+										<div class="col-sm-12 col-xs-6">
+											<div class="description-block border-right">
+												<h5 class="description-header pull-left">Delivered By</h5>
+												<span class="description-text pull-right">Gas Agency Name</span>
+											</div><!-- /.description-block -->
+											<br>
+											<div class="description-block border-right">
+												<h5 class="description-header pull-left">Delivered Item</h5>
+												<span class="description-text pull-right">COMPANy Gas Cylinder</span>
+											</div><!-- /.description-block -->
+											<br>
+											<div class="description-block border-right">
+												<h5 class="description-header pull-left">Delivered On</h5>
+												<span class="description-text pull-right">Date</span>
+											</div><!-- /.description-block -->
+											<br>
+											<a href="/invoice" class="btn btn-sm btn-info btn-flat pull-left">View Invoice</a>
+										</div><!-- /.col -->
+									</div><!-- /.row -->
+								</div>
+							</div>
+						</div>
+					</div><!-- /.box-body -->
+				</div><!-- /.box -->
+			</div>
+		</div>
+	</section>
+</div>
+{% endblock %}

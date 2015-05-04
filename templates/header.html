@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>AdminLTE 2 | Dashboard</title>
+    <title>Smart Gas | Dashboard</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <link href="{{ url_for('static', filename='internal/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />   
     <!-- FontAwesome 4.3.0 -->
@@ -115,10 +115,10 @@
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     <div class="pull-left">
-                      <a href="#" class="btn btn-default btn-flat">Profile</a>
+                      <a href="/profile" class="btn btn-default btn-flat">Profile</a>
                     </div>
                     <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                      <a href="/logout" class="btn btn-default btn-flat">Sign out</a>
                     </div>
                   </li>
                 </ul>
@@ -156,9 +156,17 @@
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
             <li class="active treeview">
-              <a href="#">
+              <a href="/dashboard">
                 <i class="fa fa-dashboard"></i> <span>Home</span>
               </a>
+            </li>
+            <li class="treeview">
+              <a href="/profile">
+                <i class="fa fa-user"></i> <span>Profile</span>
+              </a>
+            </li>
+            <li class="treeview">
+              <a href="/invoices"><i class="fa fa-file-text"></i> <span>Invoices</span></a>
             </li>
           </ul>
         </section>

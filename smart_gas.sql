@@ -126,7 +126,8 @@ CREATE TABLE IF NOT EXISTS `Users` (
   `PANCardNo` varchar(100) NOT NULL,
   `companyAffiliation` int(11) NOT NULL,
   `currentQuantity` int(11) NOT NULL,
-  `gasAgencyAffiliation` varchar(1000) NOT NULL
+  `gasAgencyAffiliation` varchar(1000) NOT NULL,
+  `phoneNumber` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
