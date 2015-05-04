@@ -48,8 +48,39 @@ def page_not_found(e):
 def screen():
 	return render_template('index.html')
 
-@app.route('/register')
+@app.route('/register', methods=['GET','POST'])
 def register():
+	if request.method == "POST":
+		db = get_cursor()
+		username = request.form['username']
+		indexQuery = 'select count(*) from Authentication'
+		db.execute(indexQuery)
+		value = db.fetchone()[0]
+		index = value + 1
+		checkQuery = 'select username from Authentication where username = "%s"'%username
+		db.execute(checkQuery)
+		data = db.fetchall()
+		if not data:
+			password = request.form['password']
+			confpassword = request.form['confirmpassword']
+			usertype = request.form['userType']
+			verified = 0
+			lastRecovery = datetime.datetime.now()
+			if password == confpassword:
+				insertQuery = 'insert into Authentication VALUES ("%s","%s","%s","%s","%s","%s")'
+				db.execute(insertQuery%(index, username, password, usertype, verified, lastRecovery))
+				db.execute("COMMIT")
+				userInsertQuery = 'insert into Users (`index`) VALUES ("%s")'%index
+				db.execute(userInsertQuery)
+				db.execute("COMMIT")
+				print "success"
+				return redirect(url_for('login'))
+			else:
+				print "Password didnot match"
+				return redirect(url_for('register'))
+		else:
+			print "Username already exists"
+			return redirect(url_for('register'))
 	return render_template('register.html')
 
 @app.route('/login')

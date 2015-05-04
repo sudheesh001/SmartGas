@@ -118,17 +118,17 @@ CREATE TABLE IF NOT EXISTS `Transactions` (
 
 CREATE TABLE IF NOT EXISTS `Users` (
   `index` int(11) NOT NULL,
-  `firstName` varchar(100) NOT NULL,
-  `lastName` varchar(100) NOT NULL,
-  `username` varchar(100) NOT NULL,
-  `userEmail` varchar(100) NOT NULL,
-  `addressDetails` varchar(1000) NOT NULL,
-  `aadharCardNo` varchar(1000) NOT NULL,
-  `PANCardNo` varchar(100) NOT NULL,
-  `companyAffiliation` int(11) NOT NULL,
-  `currentQuantity` int(11) NOT NULL,
-  `gasAgencyAffiliation` varchar(1000) NOT NULL,
-  `phoneNumber` varchar(1000) NOT NULL
+  `firstName` varchar(100) NULL,
+  `lastName` varchar(100) NULL,
+  `username` varchar(100) NULL,
+  `userEmail` varchar(100) NULL,
+  `addressDetails` varchar(1000) NULL,
+  `aadharCardNo` varchar(1000) NULL,
+  `PANCardNo` varchar(100) NULL,
+  `companyAffiliation` int(11) NULL,
+  `currentQuantity` int(11) NULL,
+  `gasAgencyAffiliation` varchar(1000) NULL,
+  `phoneNumber` varchar(1000) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
