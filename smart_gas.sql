@@ -27,6 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `Authentication` (
+  `index` int(11) NOT NULL,
   `username` varchar(1000) NOT NULL,
   `password` varchar(1000) NOT NULL,
   `userType` int(11) NOT NULL COMMENT '0 - User, 1 - Company, 2- Admin',
