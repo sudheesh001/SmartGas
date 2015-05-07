@@ -56,7 +56,7 @@ def register():
 		indexQuery = 'select count(*) from Authentication'
 		db.execute(indexQuery)
 		value = db.fetchone()[0]
-		index = value + 1
+		sno = value + 1
 		checkQuery = 'select username from Authentication where username = "%s"'%username
 		db.execute(checkQuery)
 		data = db.fetchall()
@@ -68,8 +68,8 @@ def register():
 			lastRecovery = datetime.datetime.now()
 			if password == confpassword:
 				insertQuery = 'insert into Authentication VALUES ("%s","%s","%s","%s","%s","%s")'
-				db.execute(insertQuery%(index, username, password, usertype, verified, lastRecovery))
-				userInsertQuery = 'insert into Users (index,username) VALUES ("%s","%s")'%(index,username)
+				db.execute(insertQuery%(sno, username, password, usertype, verified, lastRecovery))
+				userInsertQuery = 'insert into Users (sno,username) VALUES ("%s","%s")'%(sno,username)
 				db.execute(userInsertQuery)
 				db.execute("COMMIT")
 				print "success"
@@ -102,20 +102,25 @@ def login():
 			db.execute(sql)
 			result = db.fetchone()[0]
 			session['temp'] = result
-			sql = 'select `index` from Authentication where username="%s" AND password="%s"'%(uname, password)
+			sql = 'select sno from Authentication where username="%s" AND password="%s"'%(uname, password)
 			db.execute(sql)
 			uid = db.fetchone()[0]
 			db.execute("COMMIT")
 			app.config['USERNAME'] = uname
 			app.config['USERID'] = uid
+			dataPresence = 'select firstName from Users where username="%s"'%(uname)
+			db.execute(dataPresence)
+			checkValues = db.fetchone()[0]
+			if checkValues:
+				return redirect(url_for('dashboard'))
 			return redirect(url_for('editprofile'))
 	return render_template('login.html')
 
 @app.route('/dashboard')
 def dashboard():
-	index = app.config['USERID']
+	sno = app.config['USERID']
 	# Logged in  Index value
-	print 'Dashboard: '+index
+	print 'Dashboard: '+ sno
 	return render_template('dashboard.html')
 
 @app.route('/enterprise')
@@ -155,7 +160,7 @@ def profile():
 @app.route('/editprofile', methods=['GET', 'POST'])
 def editprofile():
 	db = get_cursor()
-	index = app.config['USERID']
+	sno = app.config['USERID']
 	userNameQuery = 'select * from Authentication where username="%s"'%app.config['USERNAME']
 	db.execute(userNameQuery)
 	userData = db.fetchone()[0]
@@ -181,7 +186,7 @@ def editprofile():
 		db.execute(sql%(fname, lname, uemail, addr, aadharcard, pancard, companyAff, currentQty, gasAgencyAff, phno, app.config['USERNAME']))
 		db.execute("COMMIT")
 		return redirect(url_for('dashboard'))
-	return render_template('editprofile.html')
+	return render_template('editprofile.html', username = app.config['USERNAME'])
 
 @app.teardown_appcontext
 def close_db():
