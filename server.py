@@ -1,16 +1,17 @@
 # all the imports
 import os,binascii
 from flask import Flask, request, session, g, redirect, url_for, abort, \
-		render_template, flash
+		render_template, flash, Blueprint, stream_with_context, Response
 from flaskext.mysql import MySQL
 from flask_mail import Mail,Message
 from config import config, ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
 import datetime
- 
 import logging
 from logging.handlers import SMTPHandler
+from collections import Counter
+import chartkick, requests
 credentials = None
 
 mysql = MySQL()
@@ -33,6 +34,9 @@ if MAIL_USERNAME or MAIL_PASSWORD:
 
 mysql.init_app(app)
 app.config.from_object(__name__)
+ck = Blueprint('ck_page', __name__, static_folder=chartkick.js(), static_url_path='/static')
+app.register_blueprint(ck, url_prefix='/ck')
+app.jinja_env.add_extension("chartkick.ext.charts")
 
 def tup2float(tup):
 	return float('.'.join(str(x) for x in tup))
