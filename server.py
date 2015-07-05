@@ -161,6 +161,16 @@ def invoices():
 def profile():
 	return render_template('profile.html')
 
+@app.route('/approve/<id>', methods=['POST'])
+def approve(id=None):
+	# Approve the order based on the ID that's being sent
+	# Approved or Not
+	return 1
+
+@app.route('/shipped', methods=['GET', 'POST'])
+def shipped():
+	return render_template('shippedItems.djt')
+
 @app.route('/editprofile', methods=['GET', 'POST'])
 def editprofile():
 	db = get_cursor()
