@@ -125,6 +125,34 @@ def dashboard():
 	sno = app.config['USERID']
 	# Logged in  Index value
 	print 'Dashboard: '+ sno
+	# Request for the local gas cylinder
+	db = get_cursor()
+	sql = 'select * from LOCAL_GasCylinder'
+	# Makes a connection via the IoT component
+	db.execute(sql)
+	result = db.fetchall()
+	if not result:
+		print "Sorry, you don't have a registered cylinder yet"
+	else :
+		for cylinder in result:
+			# Cylinder object contains each cylinder information
+			cylinderId = cylinder[0]
+			weight = cylinder[1]
+			netweight = cylinder[2]
+			grossweight = cylinder[3]
+			currentWeight = cylinder[4]
+			remindMeAt = cylinder[5]
+			completes = cylinder[6]
+			autoReBook = cylinder[7]
+			if currentWeight <= remindMeAt:
+				# CURL FOR SMS API
+				print 'Warning'
+				# Issue a transaction request based on autoReBook
+				if autoReBook == 1:
+					# Issue a request based on company onto Transaction table
+			else:
+				used = (grossweight - currentWeight)/(grossweight) * 100
+
 	return render_template('dashboard.html')
 
 @app.route('/enterprise')
