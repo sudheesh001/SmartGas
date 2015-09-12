@@ -42,11 +42,12 @@ CREATE TABLE IF NOT EXISTS `Authentication` (
 --
 
 CREATE TABLE IF NOT EXISTS `CLOUD_Cylinders` (
+  `userSno` varchar(11) NOT NULL,
   `CompanyId` int(11) NOT NULL,
   `CylinderId` int(11) NOT NULL,
   `NetWeight` int(11) NOT NULL,
   `GrossWeight` int(11) NOT NULL,
-  `dateOfFilling` int(11) NOT NULL
+  `dateOfFilling` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -84,6 +85,7 @@ CREATE TABLE IF NOT EXISTS `Delivery` (
 --
 
 CREATE TABLE IF NOT EXISTS `LOCAL_GasCylinder` (
+  `userSno` varchar(11) NOT NULL,
   `cylinderID` varchar(1000) NOT NULL,
   `cylinderWeight` int(11) NOT NULL,
   `NetWeight` double NOT NULL,

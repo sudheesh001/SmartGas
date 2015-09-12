@@ -8,6 +8,7 @@ from config import config, ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_P
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
 import datetime
+from datetime import timedelta
 import logging
 from logging.handlers import SMTPHandler
 from collections import Counter
@@ -122,10 +123,30 @@ def login():
 
 @app.route('/dashboard')
 def dashboard():
+	db = get_cursor()
 	sno = app.config['USERID']
 	# Logged in  Index value
 	print 'Dashboard: '+ sno
-	return render_template('dashboard.html')
+	CLOUDQuery = 'select * from CLOUD_Cylinders where userSno = "%s"'
+	db.execute(CLOUDQuery%sno)
+	res = db.fetchall()
+	db.execute("COMMIT")
+	cloudObject = {}
+	cloudObject['userSno'] = res[0][0]
+	cloudObject['CompanyId'] = res[0][1]
+	cloudObject['cylinderId'] = res[0][2]
+	cloudObject['netWeight'] = res[0][3]
+	cloudObject['grossWeight'] = res[0][4]
+	cloudObject['dateOfFilling'] = res[0][5]
+	# Populate Local Gas Objects
+	curDate = res[0][5]
+	EndDate = curDate + timedelta(days=10)
+	autoRebook = "1"
+	EXPCompletionDate = EndDate + timedelta(days = 2)
+	LOCALQuery = 'insert into LOCAL_GasCylinder values ("%s","%s","%s","%s","%s","%s","%s","%s","%s")'
+	db.execute(LOCALQuery%(sno, cloudObject['cylinderId'], 30, cloudObject['netWeight'], cloudObject['grossWeight'], cloudObject['grossWeight'], EndDate, EXPCompletionDate, autoRebook))
+	db.execute("COMMIT")
+	return render_template('dashboard.html', cylinderDetails = cloudObject)
 
 @app.route('/enterprise')
 def enterprise():
