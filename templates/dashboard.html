@@ -449,8 +449,10 @@
               <!-- End Box -->
 				<div class="small-box bg-green">
                 <div class="inner">
+                  {% if cylinderDetails.netWeight %}
                   <h3>{{'%0.2f'| format(cylinderDetails.grossWeight / cylinderDetails.netWeight * 100 |float) }}
                     <sup style="font-size: 20px">%</sup></h3>
+                  {% endif %}
                   <p>Gas Left in your cylinder</p>
                 </div>
                 <div class="icon">

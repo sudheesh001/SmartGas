@@ -20,3 +20,7 @@ MAIL_PASSWORD = None
 
 # Administrator list
 ADMINS = ['you@example.com']
+
+# Nexmo credentials
+NEXMO_API_KEY = ''
+NEXMO_API_SECRET = ''

@@ -4,7 +4,7 @@ from flask import Flask, request, session, g, redirect, url_for, abort, \
 		render_template, flash, Blueprint, stream_with_context, Response
 from flaskext.mysql import MySQL
 from flask_mail import Mail,Message
-from config import config, ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD
+from config import config, ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD, NEXMO_API_KEY, NEXMO_API_SECRET
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
 import datetime
@@ -13,6 +13,9 @@ import logging
 from logging.handlers import SMTPHandler
 from collections import Counter
 import chartkick, requests
+import nexmo
+
+client = nexmo.Client(key=NEXMO_API_KEY, secret=NEXMO_API_SECRET)
 credentials = None
 
 mysql = MySQL()
@@ -132,20 +135,28 @@ def dashboard():
 	res = db.fetchall()
 	db.execute("COMMIT")
 	cloudObject = {}
-	cloudObject['userSno'] = res[0][0]
-	cloudObject['CompanyId'] = res[0][1]
-	cloudObject['cylinderId'] = res[0][2]
-	cloudObject['netWeight'] = res[0][3]
-	cloudObject['grossWeight'] = res[0][4]
-	cloudObject['dateOfFilling'] = res[0][5]
-	# Populate Local Gas Objects
-	curDate = res[0][5]
-	EndDate = curDate + timedelta(days=10)
-	autoRebook = "1"
-	EXPCompletionDate = EndDate + timedelta(days = 2)
-	LOCALQuery = 'insert into LOCAL_GasCylinder values ("%s","%s","%s","%s","%s","%s","%s","%s","%s")'
-	db.execute(LOCALQuery%(sno, cloudObject['cylinderId'], 30, cloudObject['netWeight'], cloudObject['grossWeight'], cloudObject['grossWeight'], EndDate, EXPCompletionDate, autoRebook))
-	db.execute("COMMIT")
+	cloudObject['userSno'] = 0
+	cloudObject['CompanyId'] = 0
+	cloudObject['cylinderId'] = 0
+	cloudObject['netWeight'] = 1
+	cloudObject['grossWeight'] = 0
+	cloudObject['dateOfFilling'] = 0
+	if res:
+		cloudObject = {}
+		cloudObject['userSno'] = res[0][0]
+		cloudObject['CompanyId'] = res[0][1]
+		cloudObject['cylinderId'] = res[0][2]
+		cloudObject['netWeight'] = res[0][3]
+		cloudObject['grossWeight'] = res[0][4]
+		cloudObject['dateOfFilling'] = res[0][5]
+		# Populate Local Gas Objects
+		curDate = res[0][5]
+		EndDate = curDate + timedelta(days=10)
+		autoRebook = "1"
+		EXPCompletionDate = EndDate + timedelta(days = 2)
+		LOCALQuery = 'insert into LOCAL_GasCylinder values ("%s","%s","%s","%s","%s","%s","%s","%s","%s")'
+		db.execute(LOCALQuery%(sno, cloudObject['cylinderId'], 30, cloudObject['netWeight'], cloudObject['grossWeight'], cloudObject['grossWeight'], EndDate, EXPCompletionDate, autoRebook))
+		db.execute("COMMIT")
 	return render_template('dashboard.html', cylinderDetails = cloudObject)
 
 @app.route('/enterprise')
@@ -220,6 +231,7 @@ def editprofile():
 		sql = 'update Users set firstName="%s", lastName="%s", userEmail="%s", addressDetails="%s", aadharCardNo="%s", PANCardNo="%s", companyAffiliation="%s", currentQuantity="%s", gasAgencyAffiliation="%s", phoneNumber="%s" where username="%s"'
 		db.execute(sql%(fname, lname, uemail, addr, aadharcard, pancard, companyAff, currentQty, gasAgencyAff, phno, app.config['USERNAME']))
 		db.execute("COMMIT")
+		client.send_message({'from': 'SmartGas', 'to': '91'+phno, 'text': 'Thank You, You have been successfully registered.'})
 		return redirect(url_for('dashboard'))
 	return render_template('editprofile.html', username = app.config['USERNAME'])
 
