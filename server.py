@@ -42,6 +42,8 @@ ck = Blueprint('ck_page', __name__, static_folder=chartkick.js(), static_url_pat
 app.register_blueprint(ck, url_prefix='/ck')
 app.jinja_env.add_extension("chartkick.ext.charts")
 
+from api import *
+
 def tup2float(tup):
 	return float('.'.join(str(x) for x in tup))
 
@@ -51,6 +53,29 @@ def get_cursor():
 @app.errorhandler(404)
 def page_not_found(e):
 	return render_template('404.html'), 404
+
+
+####### API ENDPOINTS #######
+
+# Device Connectivity APIs for hardware
+# API endpoint is validated only by the mobile number of the GSM module on the Device
+@app.route('/api/<phone>')
+def getCylinderDetails(phone=None):
+	if phone != None:
+		db = get_cursor()
+		phno = phone
+		userQuery = 'select sno from Users where phoneNumber="%s"'%phno
+		db.execute(userQuery)
+		data = db.fetchone()[0]
+		# User sno retrieved
+		CLOUDQuery = 'select * from CLOUD_Cylinders where UserSno="%s"'%data
+		db.execute(CLOUDQuery)
+		result = db.fetchall()
+		return result
+		
+
+####### END API ENDPOINTS ###
+
 
 @app.route('/')
 def screen():
