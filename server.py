@@ -42,8 +42,6 @@ ck = Blueprint('ck_page', __name__, static_folder=chartkick.js(), static_url_pat
 app.register_blueprint(ck, url_prefix='/ck')
 app.jinja_env.add_extension("chartkick.ext.charts")
 
-from api import *
-
 def tup2float(tup):
 	return float('.'.join(str(x) for x in tup))
 
@@ -72,6 +70,16 @@ def getCylinderDetails(phone=None):
 		db.execute(CLOUDQuery)
 		result = db.fetchall()
 		return result
+
+@app.route('/api/<id>/<num>')
+def sampleAPI(id=None, num=None):
+	db = get_cursor()
+	idVal = str(id)
+	numVal = str(num)
+	insertAPIQuery = 'insert into SAMPLE values ("%s","%s")'%(idVal, numVal)
+	db.execute(insertAPIQuery)
+	db.execute("COMMIT")
+	return 'id '+str(id)+ ' :::: num '+str(num) 
 		
 
 ####### END API ENDPOINTS ###
