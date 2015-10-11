@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 19, 2015 at 03:05 PM
+-- Generation Time: Oct 19, 2015 at 03:31 PM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -39,6 +39,20 @@ CREATE TABLE IF NOT EXISTS `Authentication` (
   `addressDetails` varchar(100) NOT NULL,
   `aadharCardNo` varchar(100) NOT NULL,
   `panCardNo` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Employees`
+--
+
+CREATE TABLE IF NOT EXISTS `Employees` (
+  `vsno` varchar(10) NOT NULL,
+  `esno` varchar(10) NOT NULL,
+  `ename` varchar(100) NOT NULL,
+  `occupation` varchar(100) NOT NULL,
+  `ephone` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
