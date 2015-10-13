@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 19, 2015 at 03:31 PM
+-- Generation Time: Oct 20, 2015 at 07:58 AM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -44,6 +44,38 @@ CREATE TABLE IF NOT EXISTS `Authentication` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `Cylinders`
+--
+
+CREATE TABLE IF NOT EXISTS `Cylinders` (
+  `vsno` varchar(100) NOT NULL,
+  `cylID` varchar(100) NOT NULL,
+  `Weight` varchar(10) NOT NULL,
+  `dateOfFilling` date NOT NULL,
+  `esno` varchar(100) NOT NULL,
+  `status` varchar(100) NOT NULL COMMENT '''Warehouse'' , ''Assigned'', ''ToDeliver'''
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Delivered`
+--
+
+CREATE TABLE IF NOT EXISTS `Delivered` (
+  `trackingID` varchar(100) NOT NULL,
+  `cylID` varchar(100) NOT NULL,
+  `Weight` varchar(100) NOT NULL,
+  `currentWeight` varchar(100) NOT NULL,
+  `autoBook` varchar(100) NOT NULL,
+  `vsno` varchar(100) NOT NULL,
+  `sno` varchar(100) NOT NULL,
+  `lastUpdateToCloud` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `Employees`
 --
 
@@ -53,6 +85,23 @@ CREATE TABLE IF NOT EXISTS `Employees` (
   `ename` varchar(100) NOT NULL,
   `occupation` varchar(100) NOT NULL,
   `ephone` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Tracking`
+--
+
+CREATE TABLE IF NOT EXISTS `Tracking` (
+  `trackingID` varchar(100) NOT NULL,
+  `sno` varchar(100) NOT NULL,
+  `cylID` varchar(100) NOT NULL,
+  `esno` varchar(100) NOT NULL COMMENT 'Who has been assigned to deliver',
+  `dateOfShipping` date NOT NULL,
+  `dateOfDelivery` date NOT NULL,
+  `actualDeliverydate` date NOT NULL,
+  `vsno` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
