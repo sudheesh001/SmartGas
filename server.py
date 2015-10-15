@@ -53,38 +53,6 @@ def page_not_found(e):
 	return render_template('404.html'), 404
 
 
-####### API ENDPOINTS #######
-
-# Device Connectivity APIs for hardware
-# API endpoint is validated only by the mobile number of the GSM module on the Device
-@app.route('/api/<phone>')
-def getCylinderDetails(phone=None):
-	if phone != None:
-		db = get_cursor()
-		phno = phone
-		userQuery = 'select sno from Users where phoneNumber="%s"'%phno
-		db.execute(userQuery)
-		data = db.fetchone()[0]
-		# User sno retrieved
-		CLOUDQuery = 'select * from CLOUD_Cylinders where UserSno="%s"'%data
-		db.execute(CLOUDQuery)
-		result = db.fetchall()
-		return result
-
-@app.route('/api/<id>/<num>')
-def sampleAPI(id=None, num=None):
-	db = get_cursor()
-	idVal = str(id)
-	numVal = str(num)
-	insertAPIQuery = 'insert into SAMPLE values ("%s","%s")'%(idVal, numVal)
-	db.execute(insertAPIQuery)
-	db.execute("COMMIT")
-	return 'id '+str(id)+ ' :::: num '+str(num) 
-		
-
-####### END API ENDPOINTS ###
-
-
 @app.route('/')
 def screen():
 	return render_template('index.html')
@@ -159,38 +127,7 @@ def login():
 
 @app.route('/dashboard')
 def dashboard():
-	db = get_cursor()
-	sno = app.config['USERID']
-	# Logged in  Index value
-	print 'Dashboard: '+ sno
-	CLOUDQuery = 'select * from CLOUD_Cylinders where userSno = "%s"'
-	db.execute(CLOUDQuery%sno)
-	res = db.fetchall()
-	db.execute("COMMIT")
-	cloudObject = {}
-	cloudObject['userSno'] = 0
-	cloudObject['CompanyId'] = 0
-	cloudObject['cylinderId'] = 0
-	cloudObject['netWeight'] = 1
-	cloudObject['grossWeight'] = 0
-	cloudObject['dateOfFilling'] = 0
-	if res:
-		cloudObject = {}
-		cloudObject['userSno'] = res[0][0]
-		cloudObject['CompanyId'] = res[0][1]
-		cloudObject['cylinderId'] = res[0][2]
-		cloudObject['netWeight'] = res[0][3]
-		cloudObject['grossWeight'] = res[0][4]
-		cloudObject['dateOfFilling'] = res[0][5]
-		# Populate Local Gas Objects
-		curDate = res[0][5]
-		EndDate = curDate + timedelta(days=10)
-		autoRebook = "1"
-		EXPCompletionDate = EndDate + timedelta(days = 2)
-		LOCALQuery = 'insert into LOCAL_GasCylinder values ("%s","%s","%s","%s","%s","%s","%s","%s","%s")'
-		db.execute(LOCALQuery%(sno, cloudObject['cylinderId'], 30, cloudObject['netWeight'], cloudObject['grossWeight'], cloudObject['grossWeight'], EndDate, EXPCompletionDate, autoRebook))
-		db.execute("COMMIT")
-	return render_template('dashboard.html', cylinderDetails = cloudObject)
+	return render_template('dashboard.html')
 
 @app.route('/enterprise')
 def enterprise():
