@@ -69,27 +69,76 @@ def register():
 		checkQuery = 'select username from Authentication where username = "%s"'%username
 		db.execute(checkQuery)
 		data = db.fetchall()
+		error = None
 		if not data:
 			password = request.form['password']
 			confpassword = request.form['confirmpassword']
-			usertype = request.form['userType']
+			usertype = 'Regular'
 			verified = 0
 			lastRecovery = datetime.datetime.now()
+			firstName = request.form['firstName']
+			lastName = request.form['lastName']
+			userEmail = request.form['email']
+			addressDetails = request.form['address']
+			aadharcardNo = request.form['aadharcardNo']
+			PANCardNo = request.form['PANCardNo']
 			if password == confpassword:
-				insertQuery = 'insert into Authentication VALUES ("%s","%s","%s","%s","%s","%s")'
-				db.execute(insertQuery%(sno, username, password, usertype, verified, lastRecovery))
-				userInsertQuery = 'insert into Users (sno,username) VALUES ("%s","%s")'%(sno,username)
-				db.execute(userInsertQuery)
+				insertQuery = 'insert into Authentication VALUES ("%s","%s",MD5("%s"),"%s","%s","%s","%s","%s","%s","%s","%s","%s")'
+				db.execute(insertQuery%(sno, username, password, usertype, verified, lastRecovery, firstName, lastName, userEmail, addressDetails, aadharcardNo, PANCardNo))
 				db.execute("COMMIT")
-				print "success"
+				error = 'Successfully registered. Please login.'
 				return redirect(url_for('login'))
 			else:
-				print "Password didnot match"
+				error = 'Passwords do not match. Please check again.'
 				return redirect(url_for('register'))
 		else:
-			print "Username already exists"
+			error = "Username already exists"
 			return redirect(url_for('register'))
 	return render_template('register.html')
+
+@app.route('/vregister', methods=['GET', 'POST'])
+def vregister():
+	if request.method == "POST":
+		db = get_cursor()
+		vusername = request.form['vusername']
+		vindexQuery = 'select count(*) from Vendors'
+		db.execute(vindexQuery)
+		value = db.fetchone()[0]
+		vsno = value + 1
+		vcheckQuery = 'select vusername from Vendors where vusername = "%s"'%vusername
+		db.execute(vcheckQuery)
+		data = db.fetchall()
+		error = None
+		if not data:
+			vpassword = request.form['vpassword']
+			vconfpassword = request.form['vconfpassword']
+			vverified = 0
+			vname = request.form['vname']
+			vaddress = request.form['vaddress']
+			noOfCylinders = request.form['noOfCylinders']
+			vemail = request.form['vemail']
+			vtype = 'Regular'
+			vphoto = request.form['vphoto'] #take URL
+			vwebsite = request.form['vwebsite']
+			vphone = request.form['vphone'] # Office phone number
+			vmanagerName = request.form['vmanagerName']
+			vmanagerPhone = request.form['vmanagerPhone']
+			vemployees = request.form['vemployees'] # No of employees
+			if vpassword == vconfpassword:
+				vinsertQuery = 'insert into Vendors VALUES ("%s","%s","%s","%s","%s",MD5("%s"),"%s","%s","%s","%s","%s","%s","%s","%s","%s")'
+				db.execute(vinsertQuery%(vsno,vname,vaddress,noOfCylinders,vusername,vpassword,vemail,vtype,vverified,vphoto,vwebsite,vphone,vmanagerName,vmanagerPhone,vemployees))
+				db.execute("COMMIT")
+				error = 'Successfully Created'
+				return redirect(url_for('vlogin'))
+			else:
+				error = 'Passwords do not match. Please check again'
+				return redirect(url_for('vregister'))
+		else:
+			error = 'Looks like you already have an account. Try logging in.'
+			return redirect(url_for('vlogin'))
+	return render_template('vregister.html')
+
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
