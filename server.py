@@ -138,8 +138,6 @@ def vregister():
 			return redirect(url_for('vlogin'))
 	return render_template('vregister.html')
 
-
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 	global store
@@ -173,6 +171,33 @@ def login():
 				return redirect(url_for('dashboard'))
 			return redirect(url_for('editprofile'))
 	return render_template('login.html')
+
+@app.route('/vlogin', methods=['GET', 'POST'])
+def vlogin():
+	global store
+	error = None
+	db = get_cursor()
+	session['temp'] = 0
+	if request.method == 'POST':
+		username = str(request.form['username'])
+		password = str(request.form['password'])
+		vSQL = 'select count(*) from Vendors where vusername="%s" AND vpassword="%s"'%(username, password)
+		db.execute(vSQL)
+		result = db.fetchone()[0]
+		if not result:
+			error = "Invalid Username / Password"
+			return redirect(url_for('vlogin'))
+		else:
+			session['logged_in'] = True
+			vSQL = 'select vsno from Vendors where vusername="%s"'%vusername
+			db.execute(vSQL)
+			vsno = db.fetchone()[0]
+			db.execute("COMMIT")
+			app.config['USERNAME'] = vusername
+			app.config['USERID'] = vsno
+			return redirect(url_for('vdashboard'))
+	return render_template('vlogin.html')
+
 
 @app.route('/dashboard')
 def dashboard():
