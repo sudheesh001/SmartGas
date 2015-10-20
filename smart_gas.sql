@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `Vendors` (
   `vemail` varchar(50) NOT NULL,
   `vtype` varchar(50) NOT NULL,
   `vverified` varchar(10) NOT NULL,
-  `vphoto` varchar(10) NOT NULL,
+  `vphoto` varchar(1000) NOT NULL,
   `vwebsite` varchar(100) NOT NULL,
   `vphone` varchar(100) NOT NULL,
   `vmanagerName` varchar(100) NOT NULL,

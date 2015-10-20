@@ -181,19 +181,21 @@ def vlogin():
 	if request.method == 'POST':
 		username = str(request.form['username'])
 		password = str(request.form['password'])
-		vSQL = 'select count(*) from Vendors where vusername="%s" AND vpassword="%s"'%(username, password)
+		vSQL = 'select count(*) from Vendors where vusername="%s" AND vpassword=MD5("%s")'%(username, password)
 		db.execute(vSQL)
 		result = db.fetchone()[0]
+		print result
 		if not result:
 			error = "Invalid Username / Password"
+			print error
 			return redirect(url_for('vlogin'))
 		else:
 			session['logged_in'] = True
-			vSQL = 'select vsno from Vendors where vusername="%s"'%vusername
+			vSQL = 'select vsno from Vendors where vusername="%s"'%username
 			db.execute(vSQL)
 			vsno = db.fetchone()[0]
 			db.execute("COMMIT")
-			app.config['USERNAME'] = vusername
+			app.config['USERNAME'] = username
 			app.config['USERID'] = vsno
 			return redirect(url_for('vdashboard'))
 	return render_template('vlogin.html')
@@ -202,6 +204,29 @@ def vlogin():
 @app.route('/dashboard')
 def dashboard():
 	return render_template('dashboard.html')
+
+@app.route('/vdashboard')
+def vdashboard():
+	db = get_cursor()
+	vsno = app.config['USERID']
+	dSQL = 'select * from Vendors where vsno="%s"'%vsno
+	db.execute(dSQL)
+	res = db.fetchall()
+	result = res[0]
+	userData = {}
+	userData['vsno'] = vsno
+	userData['vname'] = result[1]
+	userData['vaddress'] = result[2]
+	userData['Cylinders'] = result[3]
+	userData['vusername'] = result[4]
+	userData['vemail'] = result[6]
+	userData['vtype'] = result[7]
+	userData['vphoto'] = result[9]
+	userData['vwebsite'] = result[10]
+	userData['vphone'] = result[11]
+	userData['vmanagerName'] = result[12]
+	userData['vemployees'] = result[14]
+	return render_template('dashboard.html', userData=userData)
 
 @app.route('/enterprise')
 def enterprise():
