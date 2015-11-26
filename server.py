@@ -205,6 +205,10 @@ def vlogin():
 def dashboard():
 	return render_template('dashboard.html')
 
+@app.route('/user')
+def user():
+	return render_template('user.html')
+
 @app.route('/vdashboard')
 def vdashboard():
 	db = get_cursor()
