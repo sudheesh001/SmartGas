@@ -14,6 +14,7 @@ from logging.handlers import SMTPHandler
 from collections import Counter
 import chartkick, requests
 import nexmo
+import hashlib, urllib
 
 client = nexmo.Client(key=NEXMO_API_KEY, secret=NEXMO_API_SECRET)
 credentials = None
@@ -75,7 +76,8 @@ def register():
 			confpassword = request.form['confirmpassword']
 			usertype = 'Regular'
 			verified = 0
-			lastRecovery = datetime.datetime.now()
+			lastRecoveryTime = datetime.datetime.now()
+			lastRecovery = str(unicode(lastRecoveryTime))[:10]
 			firstName = request.form['firstName']
 			lastName = request.form['lastName']
 			userEmail = request.form['email']
@@ -147,29 +149,29 @@ def login():
 	if request.method == 'POST':
 		uname = str(request.form['username'])
 		password = str(request.form['password'])
-		sql = 'select count(*) from Authentication where username="%s" AND password="%s"'%(uname, password)
+		sql = 'select count(*) from Authentication where username="%s" AND password=MD5("%s")'%(uname, password)
 		db.execute(sql)
 		result = db.fetchone()[0]
 		if not result:
+			print 'Reached here !'
 			error = "Invalid Username / Password"
 		else:
 			session['logged_in'] = True
-			sql = 'select userType from Authentication where username="%s" AND password="%s"'%(uname, password)
+			sql = 'select userType from Authentication where username="%s" AND password=MD5("%s")'%(uname, password)
 			db.execute(sql)
 			result = db.fetchone()[0]
 			session['temp'] = result
-			sql = 'select sno from Authentication where username="%s" AND password="%s"'%(uname, password)
+			sql = 'select sno from Authentication where username="%s" AND password=MD5("%s")'%(uname, password)
 			db.execute(sql)
 			uid = db.fetchone()[0]
 			db.execute("COMMIT")
 			app.config['USERNAME'] = uname
 			app.config['USERID'] = uid
-			dataPresence = 'select firstName from Users where username="%s"'%(uname)
-			db.execute(dataPresence)
-			checkValues = db.fetchone()[0]
-			if checkValues:
-				return redirect(url_for('dashboard'))
-			return redirect(url_for('editprofile'))
+			app.config['USERTYPE'] = 'REGULAR'
+			print 'Reaching here on else'
+			print 'outside redirect'
+			return redirect(url_for('dashboard'))
+	print 'failed'
 	return render_template('login.html')
 
 @app.route('/vlogin', methods=['GET', 'POST'])
@@ -203,6 +205,42 @@ def vlogin():
 
 @app.route('/dashboard')
 def dashboard():
+	db = get_cursor()
+	if app.config['USERTYPE'] == 'REGULAR':
+		uid = app.config['USERID']
+		uname = app.config['USERNAME']
+		sql = 'SELECT * FROM Authentication where sno="%s"'%uid
+		db.execute(sql)
+		results = db.fetchall()[0]
+		result = {}
+		result['sno'] = results[0]
+		result['username'] = results[1]
+		result['fname'] = results[6]
+		result['lname'] = results[7]
+		result['email'] = results[8]
+		result['address'] = results[9]
+		result['aadhar'] = results[10]
+		result['pan'] = results[11]
+		default = "http://www.example.com/default.jpg"
+		size = 40
+		gravatar_url = "http://www.gravatar.com/avatar/" + hashlib.md5(results[8].lower()).hexdigest() + "?"
+		gravatar_url += urllib.urlencode({'s':str(size), 'd':'identicon'})
+		result['gravatar'] = gravatar_url
+		# Cylinder based query starts here
+		cylQuery = 'select * from UserCylinders where sno="%s"'%uid
+		db.execute(cylQuery)
+		cyResult = db.fetchall()[0]
+		cylinder = {}
+		cylinder['cid'] = cyResult[1]
+		cylinder['weight'] = cyResult[2]
+		cylinder['currWeight'] = cyResult[3]
+		cylinder['fillPercent'] = 100 - ((float(cyResult[2])-float(cyResult[3]))/float(cyResult[2]) * 100.00)
+		cylinder['DOF'] = cyResult[4]
+		cylinder['DOC'] = cyResult[5]
+		cylinder['AConsumption'] = cyResult[6]
+		cylinder['days'] = cyResult[7]
+		cylinder['fillValue'] = int(cylinder['fillPercent'] * 150.0 / 100.0)
+		return render_template('user.html', result=result, cylinder=cylinder)
 	return render_template('dashboard.html')
 
 @app.route('/user')
@@ -309,7 +347,7 @@ def editprofile():
 	return render_template('editprofile.html', username = app.config['USERNAME'])
 
 @app.teardown_appcontext
-def close_db():
+def close_db(self):
 	"""Closes the database again at the end of the request."""
 	get_cursor().close()
 
