@@ -44,6 +44,23 @@ CREATE TABLE IF NOT EXISTS `Authentication` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for the cylinders the user owns
+--
+
+CREATE TABLE IF NOT EXISTS `UserCylinders` (
+  `sno` varchar(10) NOT NULL,
+  `cylID` varchar(100) NOT NULL,
+  `Weight` varchar(100) NOT NULL,
+  `currentWeight` varchar(100) NOT NULL,
+  `dateOfFilling` date NOT NULL,
+  `dateOfCompletion` date NOT NULL,
+  `avgConsumption` varchar(10) NOT NULL,
+  `days` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `Cylinders`
 --
 

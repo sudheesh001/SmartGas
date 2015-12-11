@@ -1,184 +1,223 @@
 <!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
-<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
-<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
-<head>
-    <title>Smart Gas Systems</title>
-    <!-- Meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">    
-    <link rel="shortcut icon" href="favicon.ico">  
-    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,300italic,400italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> 
-    <!-- Global CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='plugins/bootstrap/css/bootstrap.min.css')}}">
-    <!-- Plugins CSS -->    
-    <link rel="stylesheet" href="{{ url_for('static', filename='plugins/font-awesome/css/font-awesome.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='plugins/prism/prism.css')}}">
-    <!-- Theme CSS -->  
-    <link id="theme-style" rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head> 
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Dr. LPG | Smart Gas Systems</title>
+		<meta name="description" content="Smart Gas Systems IoT devices." />
+		<meta name="keywords" content="IoT, Gas Level Indication, Smart Gas Devices" />
+		<meta name="author" content="Dr.LPG Smart Gas Systems" />
+		<!-- Bootstrap -->
+		<script src="{{ url_for('static', filename='js/modernizr.custom.js') }}"></script>
+		<link href="{{ url_for('static', filename='plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+		<link href="{{ url_for('static', filename='css/jquery.fancybox.css') }}" rel="stylesheet">
+		<link href="{{ url_for('static', filename='css/flickity.css') }}" rel="stylesheet" >
+		<link href="{{ url_for('static', filename='css/animate.css') }}" rel="stylesheet">
+		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+		<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+		<link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+		<link href="{{ url_for('static', filename='css/queries.css') }}" rel="stylesheet">
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<!--[if lt IE 7]>
+		<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+		<![endif]-->
+		<!-- open/close -->
+		<header>
+			<section class="hero">
+				<div class="texture-overlay"></div>
+				<div class="container">
+				<div class="row nav-wrapper">
+						<div class="col-md-8 col-sm-8 col-xs-8">
+							
+						</div>
+						<div class="col-md-4 col-sm-4 col-xs-4 text-right navicon">
+							<p>Menu</p><a id="trigger-overlay" class="nav_slide_button nav-toggle" href="#"><span></span></a>
+						</div>
+					</div>
+					<div class="row hero-content" style="margin-left:32px;text-align:center;margin-top:33px;">
+						<div class="col-md-12 col-sm-12 col-xs-12 text-left" style="text-align:center;margin-bottom:-28%;">
+							<a href="#"><img src="{{ url_for('static', filename='images/DrLPGLogo-2.png') }}" alt="Dr.LPG Logo" height="200" ></a>
+						</div>
+						<div class="col-md-12">
+						<!-- <hr style="margin-top:33px;"> -->
+							<h1 class="animated fadeInDown">Ever wanted to cook a meal <br>and the gas cylinder goes empty? <br> Well we have a solution to that problem.</h1>
+							<a href="/login" class="use-btn animated fadeInUp">Sign up now</a> <a href="#about" class="learn-btn animated fadeInUp">Login <i class="fa fa-arrow-right"></i></a>
+						</div>
+					</div>
+					<div class="row nav-wrapper">
+					</div>
+				</div>
+			</section>
+		</header>
+		<section class="features-intro">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-6 nopadding features-intro-img">
+						<div class="features-bg">
+							<div class="texture-overlay"></div>
+							<div class="features-img wp1">
+								<!-- <img src="img/html5-logo.png" alt="HTML5 Logo"> -->
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 nopadding">
+						<div class="features-slider">
+								<ul class="slides" id="featuresSlider">
+									<li>
+										<h1>What is Smart Gas Systems ?</h1>
+										<p>Smart Gas System, is the complete set of IoT systems that caters to the complete needs of handling and managing the LPG gas cylinders at home. It connects the gas vendors to home and ensures that delivery is faster.</p>
+										<p><a href="#features" class="arrow-btn">Want to try us ? Click here. <i class="fa fa-long-arrow-right"></i></a></p>
+									</li>
+									<li>
+										<h1>Designed for precision</h1>
+										<p>Gas leakages and not knowing the exact amount of gas present in your LPG cylinders cause problems, we solve them.</p>
+									</li>
+									<li>
+										<h1>Punctual reminders</h1>
+										<p>As the LPG level reduces in the system we inform you the levels through our app and by SMS and email.</p>
+									</li>
+									<li>
+										<h1>Web application</h1>
+										<p>Want to book a new cylinder when the old one is going to go out in a few days ? Why worry, let the automation take care of it</p>
+									</li>
+									<li>
+										<h1>Mobile friendly</h1>
+										<p>Monitor all the devices present at home from anywhere. Interactive views on level indications and estimated usage.</p>
+									</li>
+									<li>
+										<h1>
+											Easy to install
+										</h1>
+										<p>The app is easy to install and available on a number of mobile platforms.</p>
+									</li>
+									<li>
+										<h1>Easy to Use</h1>
+										<p>Everything is just a few button clicks away making it the easiest smart home automation system for kitchens to use.</p>
+									</li>
+								</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="features-list" id="features">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="col-md-6 feature-2 wp2">
+							<div class="feature-icon">
+								<i class="fa fa-flash"></i>
+								<h1 style="margin-top:10px;font-size:15px;">Lightning Fast</h1>
+							</div>
+							<div class="feature-content">
+								<p>Forgot about how much gas you've got left ? How about a situation where the gas vendor lets you know and delivers the cylinder the very next day ? Saves effort doesn't it ! That's exactly what we do. At the blink of an eye.</p>
+							</div>
+						</div>
+						<div class="col-md-6 feature-3 wp2">
+							<div class="feature-icon">
+								<i class="fa fa-heart"></i>
+								<h1 style="margin-top:10px;font-size:15px;">Absolutely Free</h1>
+							</div>
+							<div class="feature-content">
+								<p>We connect vendors directly to you. With the smart device that you purchase, you can easily monitor your gas levels and ensure faster delivery of the gas cylinders.</p>
+							</div>
+						</div>
 
-<body data-spy="scroll">
-    
-    <!---//Facebook button code-->
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
-    
-    <!-- ******HEADER****** --> 
-    <header id="header" class="header">  
-        <div class="container">            
-            <h1 class="logo pull-left">
-                <a class="scrollto" href="#promo">
-                    <span class="logo-title">SmartGas Systems</span>
-                </a>
-            </h1><!--//logo-->              
-            <nav id="main-nav" class="main-nav navbar-right" role="navigation">
-                <div class="navbar-header">
-                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button><!--//nav-toggle-->
-                </div><!--//navbar-header-->            
-                <div class="navbar-collapse collapse" id="navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active nav-item sr-only"><a class="scrollto" href="#promo">Home</a></li>
-                        <li class="nav-item"><a class="scrollto" href="/login">Login</a></li>
-                        <li class="nav-item"><a class="scrollto" href="/vlogin">Vendor Login</a></li>
-                    </ul><!--//nav-->
-                </div><!--//navabr-collapse-->
-            </nav><!--//main-nav-->
-        </div>
-    </header><!--//header-->
-    
-    <!-- ******PROMO****** -->
-    <section id="promo" class="promo section offset-header">
-        <div class="container text-center">
-            <h2 class="title">Dr.<span class="highlight">LPG</span></h2>
-            <p class="intro">Ever wanted to cook a meal and the gas cylinder goes empty ? Is the only thought on your head the fact that why couldn't you know it in advance ? Well we have a solution to that problem.</p>
-            <div class="btns">
-                <a class="btn btn-cta-secondary" href="/login" target="_blank">Login</a>
-                <a class="btn btn-cta-primary" href="/signUp" target="_blank">Sign Up</a>
-            </div>
-            <div class="btns">
-                <br>
-            </div>
-        </div><!--//container-->
-        <div class="social-media">
-            <div class="social-media-inner container text-center">
-                <ul class="list-inline">
-                    <li class="twitter-follow">
-                        <img src="{{ url_for('static', filename='images/appleAppStore.png') }}" height="50px">
-                    </li>
-                    <li class="twitter-tweet">
-                        <img src="{{ url_for('static', filename='images/googleAppStore.png') }}" height="50px">
-                    </li>
-                    <li class="facebook-like">
-                        <img src="{{ url_for('static', filename='images/windowsAppStore.png') }}" height="50px">
-                    </li>
-                </ul>
-            </div>
-        </div>
-        
-    </section><!--//promo-->
-    
-    <!-- ******ABOUT****** --> 
-    <section id="about" class="about section">
-        <div class="container">
-            <h2 class="title text-center">What is smart gas systems?</h2>
-            <p class="intro text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur numquam, soluta libero. Quaerat aliquid quidem reprehenderit repellendus excepturi, enim, eligendi nesciunt, culpa eaque dicta, incidunt quia maxime vel provident. Incidunt.</p>
-            <div class="row">
-                <div class="item col-md-4 col-sm-6 col-xs-12">
-                    <div class="icon-holder">
-                        <i class="fa fa-heart"></i>
-                    </div>
-                    <div class="content">
-                        <h3 class="sub-title">Designed for precision</h3>
-                        <p>Gas leakages and not knowing the exact amount of gas persent in your LPG cylinders cause problems, we solve them.</p>
-                    </div><!--//content-->
-                </div><!--//item-->
-                <div class="item col-md-4 col-sm-6 col-xs-12">
-                    <div class="icon-holder">
-                        <i class="fa fa-clock-o"></i>
-                    </div>
-                    <div class="content">
-                        <h3 class="sub-title">Punctual reminders</h3>
-                        <p>As the LPG level reduces in the system we inform you the levels through our app and by SMS and email.</p>
-                    </div><!--//content-->
-                </div><!--//item-->
-                <div class="item col-md-4 col-sm-6 col-xs-12">
-                    <div class="icon-holder">
-                        <i class="fa fa-crosshairs"></i>
-                    </div>
-                    <div class="content">
-                        <h3 class="sub-title">Web application</h3>
-                        <p>Want to book a new cylinder when the old one is going to go out in a few days ? Why worry, let the automation take care of it</p>
-                    </div><!--//content-->
-                </div><!--//item--> 
-                <br>          
-                <div class="clearfix visible-md"></div>    
-                <div class="item col-md-4 col-sm-6 col-xs-12">
-                    <div class="icon-holder">
-                        <i class="fa fa-tablet"></i>
-                    </div>
-                    <div class="content">
-                        <h3 class="sub-title">Mobile friendly</h3>
-                        <p>Monitor all the devices present at home from anywhere. Interactive views on level indications and estimated usage.</p>
-                    </div><!--//content-->
-                </div><!--//item-->                
-                <div class="item col-md-4 col-sm-6 col-xs-12">
-                    <div class="icon-holder">
-                        <i class="fa fa-code"></i>
-                    </div>
-                    <div class="content">
-                        <h3 class="sub-title">Easy to Install</h3>
-                        <p>The app is easy to install and available on a number of mobile platforms.</p>
-                    </div><!--//content-->
-                </div><!--//item-->
-                <div class="item col-md-4 col-sm-6 col-xs-12">
-                    <div class="icon-holder">
-                        <i class="fa fa-coffee"></i>
-                    </div>
-                    <div class="content">
-                        <h3 class="sub-title">Easy to Use</h3>
-                        <p>Everything is just a few button clicks away making it the easiest smart home automation system for kitchens to use.</p>
-                    </div><!--//content-->
-                </div><!--//item-->               
-            </div><!--//row-->            
-        </div><!--//container-->
-    </section><!--//about-->
-      
-    <!-- ******FOOTER****** --> 
-    <footer class="footer">
-        <div class="container text-center">
-            <small>Smart Gas Detection and Level Indication Systems | NIT - Warangal</small>
-        </div><!--//container-->
-    </footer><!--//footer-->
-     
-    <!-- Javascript -->          
-    <script type="text/javascript" src="{{ url_for('static', filename='plugins/jquery-1.11.1.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='plugins/jquery-migrate-1.2.1.min.js') }}"></script>    
-    <script type="text/javascript" src="{{ url_for('static', filename='plugins/jquery.easing.1.3.js') }}"></script>   
-    <script type="text/javascript" src="{{ url_for('static', filename='plugins/bootstrap/js/bootstrap.min.js') }}"></script>     
-    <script type="text/javascript" src="{{ url_for('static', filename='plugins/jquery-scrollTo/jquery.scrollTo.min.js') }}"></script> 
-    <script type="text/javascript" src="{{ url_for('static', filename='plugins/prism/prism.js') }}"></script>    
-    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>       
-</body>
-</html> 
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="showcase">
+			<div class="showcase-wrap">
+				<div class="texture-overlay"></div>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="device wp3">
+								<div class="device-content">
+									<div class="showcase-slider">
+										<ul class="slides" id="showcaseSlider">
+											<li>
+												<img src="{{ url_for('static', filename='img/screen1.png') }}" alt="Device Content Image">
+											</li>
+											<li>
+												<img src="{{ url_for('static', filename='img/screen2.png') }}" alt="Device Content Image">
+											</li>
+											<li>
+												<img src="{{ url_for('static', filename='img/screen3.png') }}" alt="Device Content Image">
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<h1>Available on Most platforms</h1>
+							<p>We're now available on 
+							<ul style="color:white;">
+								<li style="color:white;">Apple App Store</li>
+								<li style="color:white;">Google Play Store</li>
+								<li style="color:white;">Firefox Marketplace</li>
+								<li style="color:white;">Web</li>
+							</ul></p>
+							<a href="http://tympanus.net/codrops/?p=22554" class="download-btn">Download! <i class="fa fa-download"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 
+		<footer style="text-align:center;">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<p>Smart Gas Detection and Level Indication Systems <br> <a href=""> National Institute of Technology Warangal</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<div class="overlay overlay-boxify">
+			<nav>
+				<ul>
+					<li><a href="#about"><i class="fa fa-heart"></i>About</a></li>
+					<li><a href="#features"><i class="fa fa-flash"></i>Features</a></li>
+				</ul>
+				<ul>
+					<li><a href="#screenshots"><i class="fa fa-desktop"></i>Screenshots</a></li>
+					<li><a href="#download"><i class="fa fa-download"></i>Download</a></li>
+				</ul>
+			</nav>
+		</div>
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="{{ url_for('static', filename='js/min/toucheffects-min.js') }}"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="{{ url_for('static', filename='js/flickity.pkgd.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/jquery.fancybox.pack.js') }}"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="{{ url_for('static', filename='js/retina.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/waypoints.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/min/scripts-min.js') }}"></script>
+		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+		<script>
+		(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+		function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+		e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+		e.src='//www.google-analytics.com/analytics.js';
+		r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+		ga('create','UA-XXXXX-X');ga('send','pageview');
+		</script>
+	</body>
+</html>
